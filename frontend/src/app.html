@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#1a1f26" />
+    <link rel="icon" href="%sveltekit.assets%/icone.svg" type="image/svg+xml" />
+    <link rel="manifest" href="%sveltekit.assets%/manifest.webmanifest" />
+    <title>Assistência Técnica</title>
+    <script>
+      // Aplica o tema salvo antes de desenhar a página (evita piscar claro/escuro).
+      try {
+        const t = localStorage.getItem('tema');
+        if (t === 'claro') { document.documentElement.dataset.tema = t; document.querySelector('meta[name="color-scheme"]').content = 'light'; }
+      } catch {}
+    </script>
+    %sveltekit.head%
+  </head>
+  <body>
+    <div style="display: contents">%sveltekit.body%</div>
+  </body>
+</html>

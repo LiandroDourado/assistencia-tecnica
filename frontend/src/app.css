@@ -1,0 +1,90 @@
+@import '@fontsource/atkinson-hyperlegible/400.css';
+@import '@fontsource/atkinson-hyperlegible/700.css';
+
+/* Tokens. Escuro é o padrão (seção 2 da especificação); o claro vale só
+   quando escolhido no botão de tema, e a escolha fica salva no navegador. */
+:root {
+  --fundo: #1a1f26;
+  --superficie: #232a33;
+  --superficie-2: #2b333e;
+  --borda: #343d49;
+  --texto: #e8ecf1;
+  --texto-2: #a3aebb;
+  --acao: #2fbf8f;
+  --acao-forte: #43d3a2;
+  --sobre-acao: #0c2a1f;
+  --erro: #f07171;
+  --erro-fundo: #3a2326;
+  --ok-fundo: #1d3a30;
+  --foco: #7cc4ff;
+  --raio: 10px;
+  --fonte: 'Atkinson Hyperlegible', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  color-scheme: dark;
+}
+:root[data-tema='claro'] {
+  --fundo: #f2f4f6; --superficie: #ffffff; --superficie-2: #e9edf1; --borda: #cfd6de;
+  --texto: #1a1f26; --texto-2: #4f5a67; --acao: #0e7a57; --acao-forte: #0b6648;
+  --sobre-acao: #ffffff; --erro: #b42323; --erro-fundo: #fbe9e9; --ok-fundo: #e2f4ec; --foco: #1f6fd1;
+  color-scheme: light;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--fundo);
+  color: var(--texto);
+  font: 400 1rem/1.5 var(--fonte);
+  font-variant-numeric: tabular-nums;
+}
+h1, h2, h3 { line-height: 1.2; margin: 0; }
+a { color: var(--acao-forte); }
+:focus-visible { outline: 3px solid var(--foco); outline-offset: 2px; }
+
+/* Formulários: campos e botões com no mínimo 44 px de altura (uso na bancada). */
+.campo { display: grid; gap: 0.35rem; }
+.campo label { font-weight: 700; font-size: 0.95rem; }
+.campo .dica { color: var(--texto-2); font-size: 0.875rem; }
+input, select {
+  min-height: 44px;
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  background: var(--fundo);
+  color: var(--texto);
+  font: inherit;
+}
+input:focus-visible, select:focus-visible { outline-offset: 0; border-color: var(--foco); }
+
+button, .botao {
+  min-height: 44px;
+  padding: 0.55rem 1.1rem;
+  border: 1px solid transparent;
+  border-radius: var(--raio);
+  font: 700 1rem/1.2 var(--fonte);
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+button:disabled { opacity: 0.6; cursor: progress; }
+.primario { background: var(--acao); color: var(--sobre-acao); }
+.primario:hover:not(:disabled) { background: var(--acao-forte); }
+.secundario { background: transparent; color: var(--texto); border-color: var(--borda); }
+.secundario:hover:not(:disabled) { background: var(--superficie-2); }
+
+.aviso { padding: 0.75rem 1rem; border-radius: var(--raio); }
+.aviso.erro { background: var(--erro-fundo); color: var(--erro); }
+.aviso.ok { background: var(--ok-fundo); color: var(--acao-forte); }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}

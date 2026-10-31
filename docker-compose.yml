@@ -1,0 +1,55 @@
+# Sistema de Assistência Técnica — instalação no ZimaOS.
+# ZimaOS: App Store → Instalar app personalizado → Importar → cole este arquivo.
+# Para atualizar: troque o número da versão em "image" e reinstale.
+name: assistencia-tecnica
+services:
+  app:
+    image: ghcr.io/liandrodourado/assistencia-tecnica:1.0.0
+    container_name: assistencia-tecnica
+    restart: unless-stopped
+    ports:
+      - "8089:8089"
+    environment:
+      TZ: America/Sao_Paulo
+      PUID: "1000"
+      PGID: "1000"
+    volumes:
+      - /DATA/AppData/assistencia-tecnica:/dados
+    healthcheck:
+      test: ["CMD", "/app/assistencia", "healthcheck"]
+      interval: 30s
+      timeout: 5s
+      start_period: 15s
+      retries: 3
+    x-casaos:
+      ports:
+        - container: "8089"
+          description:
+            pt_BR: Porta da interface web
+            en_US: Web interface port
+      volumes:
+        - container: /dados
+          description:
+            pt_BR: Banco de dados, fotos, backups e configurações
+            en_US: Database, photos, backups and settings
+
+x-casaos:
+  main: app
+  architectures:
+    - amd64
+  author: Liandro Dourado
+  developer: Liandro Dourado
+  category: Utilities
+  icon: https://raw.githubusercontent.com/LiandroDourado/assistencia-tecnica/main/icone.png
+  port_map: "8089"
+  scheme: http
+  index: /
+  title:
+    pt_BR: Assistência Técnica
+    en_US: Assistência Técnica
+  tagline:
+    pt_BR: Ordens de serviço, estoque e caixa da loja
+    en_US: Repair shop management
+  description:
+    pt_BR: Sistema de gestão de assistência técnica para a rede local da loja.
+    en_US: Repair shop management system for the local network.
